@@ -50,7 +50,7 @@ if(ABI_SET_VERSION)
 endif()
 
 if (NOT DEFINED BOOST_PYTHON_COMPONENT_NAME)
-    # may need to be, e.g. python36, python39
+    # may need to be, e.g. python36, python311
     set(BOOST_PYTHON_COMPONENT_NAME python)
 endif()
 
@@ -175,4 +175,3 @@ install(
     DESTINATION
         ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}-${PROJECT_VERSION}
 )
-
