@@ -32,6 +32,18 @@ target_include_directories(${component}
         $<INSTALL_INTERFACE:include>
 )
 
+# Dirty compatibility workaround:
+# Houdini 20.5 ships USD 24.03 headers that fail to compile under
+# Xcode 26 / AppleClang 21 because pxr/usd/sdf/childrenProxy.h contains an
+# invalid _ValueProxy::operator= path that calls SdfChildrenProxy::_Set(),
+# which does not exist. This target directly compiles Houdini USD geometry
+# headers, so keep the workaround target-local and remove it when the
+# Houdini/USD/toolchain combination compiles normally.
+target_include_directories(${component}
+    BEFORE PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../../../hydra/hdMoonray/plugin/adapters/compat/houdini20_5_usd24_xcode26>
+)
+
 target_compile_definitions(${component}
     PUBLIC 
        # Need std::unary_functions
