@@ -355,13 +355,16 @@ createMesh(const scene_rdl2::rdl2::Geometry *rdlGeometry,
 
             ++subsetIndex;
         }
+    }
 
-        // Is the mesh itself named in the parts list?  Get the index.
-        for (size_t i = 0; i < geomPartList.size(); ++i) {
-            if (meshName == geomPartList[i]) {
-                meshPartIndex = i;
-                break;
-            }
+    // Find the mesh's own index in the parts list.  Some assets author each "part" as its
+    // own top-level mesh prim instead of a UsdGeomSubset, so subsets can be empty even though
+    // the mesh still maps to a part_list entry; must run unconditionally or meshPartIndex
+    // stays -1 and per-part primitive attributes silently fall back to 0.
+    for (size_t i = 0; i < geomPartList.size(); ++i) {
+        if (meshName == geomPartList[i]) {
+            meshPartIndex = i;
+            break;
         }
     }
     LayerAssignmentId layerAssignmentId(std::move(faceAssignmentIds));
