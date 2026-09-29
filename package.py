@@ -79,6 +79,13 @@ variants = [
         'gcc-14.2.x',
         'usd_core-0.26.5.x'
     ],
+    [   # variant 7
+        'os-rocky-9',
+        'opt_level-optdebug',
+        'refplat-vfx2022.0',
+        'gcc-9.3.x.1',
+        'usd_core-0.22.5.x'
+    ],
 ]
 
 conf_rats_variants = variants[0:2]
